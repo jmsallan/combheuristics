@@ -1,1 +1,1 @@
-export(PalmerTrapezes, HCFS, SAFS, TSFS, GRASPFS, ILSFS)
+export(makespan, PalmerTrapezes, HCFS, SAFS, TSFS, GRASPFS, ILSFS)
