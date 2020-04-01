@@ -528,7 +528,7 @@ ILSFS <- function(M, ni=4, iter=100, opt="HC", ...){
     seed_sol <- PerturbationInsertion(sol)
 
     if(opt=="HC")
-      test_sol <- HCFS(M, seed_sol, op=op)
+      test_sol <- HCFS(M, seed_sol, op="swap")
 
     if(opt=="TS")
       test_sol <- TSFS(M, seed_sol, iter=25, op="swap", early = TRUE)
