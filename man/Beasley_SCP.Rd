@@ -5,7 +5,7 @@
 \alias{Beasley_SCP}
 \title{J. E. Beasley instances of the set covering problem}
 \format{
-A list containing 80 lists, named as in the original problem set. Each list has the following contents:
+A list containing 79 lists, named as in the original problem set. Each list has the following contents:
 \describe{
 \item{m}{Number of sets of elements of the universe.}
 \item{n}{Numerber of elements of the universe.}
@@ -20,7 +20,7 @@ A list containing 80 lists, named as in the original problem set. Each list has 
 Beasley_SCP
 }
 \description{
-A list containing 80 instances of the set covering problem included in the OR-Library maintained by J. R. Beasley.
+A list containing 79 instances of the set covering problem included in the OR-Library maintained by J. R. Beasley.
 }
 \examples{
 Beasley_SCP$scp41

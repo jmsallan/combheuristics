@@ -1,91 +1,67 @@
-setwd("~/Dropbox (UPC)/00-curso1920/MH1920q2/FinalProject")
-
 # Info about scp instances
 # http://people.brunel.ac.uk/~mastjjb/jeb/orlib/scpinfo.html
 
 # Sample web
 # http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/scp42.txt
 
-
-#---- list URLs ------
-
-root_url <- "http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/"
-
-list10 <- as.character(1:10)
-list5 <- as.character(1:5)
-
-#set 4
-urlset4 <- sapply(list10, function(x) paste0(root_url, "scp4", x, ".txt"))
-#set 5
-urlset5 <- sapply(list10, function(x) paste0(root_url, "scp5", x, ".txt"))
-#set 6
-urlset6 <- sapply(list5, function(x) paste0(root_url, "scp6", x, ".txt"))
-
-#set A
-urlsetA <- sapply(list5, function(x) paste0(root_url, "scpa", x, ".txt"))
-#set B
-urlsetB <- sapply(list5, function(x) paste0(root_url, "scpb", x, ".txt"))
-#set C
-urlsetC <- sapply(list5, function(x) paste0(root_url, "scpc", x, ".txt"))
-#set D
-urlsetD <- sapply(list5, function(x) paste0(root_url, "scpd", x, ".txt"))
-#set E
-urlsetE1 <- sapply(list5, function(x) paste0(root_url, "scpe", x, ".txt"))
-
-#set E2
-urlsetE2 <- sapply(list5, function(x) paste0(root_url, "scpnre", x, ".txt"))
-#set F
-urlsetF <- sapply(list5, function(x) paste0(root_url, "scpnrf", x, ".txt"))
-#set G
-urlsetG <- sapply(list5, function(x) paste0(root_url, "scpnrg", x, ".txt"))
-#set H
-urlsetH <- sapply(list5, function(x) paste0(root_url, "scpnrh", x, ".txt"))
-
-list06_11 <- substr(106:111, 2, 3)
-list10_13 <- substr(110:113, 2, 3)
-
-#set CYC
-urlsetCYC <- sapply(list06_11, function(x) paste0(root_url, "scpcyc", x, ".txt"))
-#set CLR
-urlsetCRL <- sapply(list10_13, function(x) paste0(root_url, "scpclr", x, ".txt"))
-
 #---- list of names -----
 
 #names of 4
-names4 <- sapply(list10, function(x) paste0("scp4", x))
+names4 <- sapply(1:10, function(x) paste0("scp4", x))
 #names of 5
-names5 <- sapply(list10, function(x) paste0("scp5", x))
+names5 <- sapply(1:9, function(x) paste0("scp5", x))
 #names of 6
-names6 <- sapply(list5, function(x) paste0("scp6", x))
+names6 <- sapply(1:5, function(x) paste0("scp6", x))
 
 #names of A
-namesA <- sapply(list5, function(x) paste0("scpa", x))
+namesA <- sapply(1:5, function(x) paste0("scpa", x))
 #names of B
-namesB <- sapply(list5, function(x) paste0("scpb", x))
+namesB <- sapply(1:5, function(x) paste0("scpb", x))
 #names of C
-namesC <- sapply(list5, function(x) paste0("scpc", x))
+namesC <- sapply(1:5, function(x) paste0("scpc", x))
 #names of D
-namesD <- sapply(list5, function(x) paste0("scpd", x))
+namesD <- sapply(1:5, function(x) paste0("scpd", x))
 #names of E
-namesE1 <- sapply(list5, function(x) paste0("scpe", x))
+namesE1 <- sapply(1:5, function(x) paste0("scpe", x))
 
 #names of E2
-namesE2 <- sapply(list5, function(x) paste0("scpnre", x))
+namesE2 <- sapply(1:5, function(x) paste0("scpnre", x))
 #names of F
-namesF <- sapply(list5, function(x) paste0("scpnrf", x))
+namesF <- sapply(1:5, function(x) paste0("scpnrf", x))
 #names of G
-namesG <- sapply(list5, function(x) paste0("scpnrg", x))
+namesG <- sapply(1:5, function(x) paste0("scpnrg", x))
 #names of H
-namesH <- sapply(list5, function(x) paste0("scpnrh", x))
+namesH <- sapply(1:5, function(x) paste0("scpnrh", x))
+
+list06_11 <- substr(106:111, 2, 3)
+list10_13 <- substr(110:113, 2, 3)
 
 #names of CYC
 namesCYC <- sapply(list06_11, function(x) paste0("scpcyc", x))
 #names of CLR
 namesCLR <- sapply(list10_13, function(x) paste0("scpclr", x))
 
-read_SCP <- function(url){
+all_names <- c(names4, names5, names6, 
+                   namesA, namesB, namesC, namesD, namesE1, 
+                   namesE2, namesF, namesG, namesH, 
+                   namesCYC, namesCLR)
+
+names(all_names) <- NULL
+
+rm(names4, names5, names6, 
+   namesA, namesB, namesC, namesD, namesE1, 
+   namesE2, namesF, namesG, namesH, 
+   namesCYC, namesCLR, list06_11, list10_13)
+
+root_url <- "http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/"
+
+all_url <- paste0(root_url, all_names, ".txt")
+
+rm(root_url)
+
+read_scp <- function(url){
   
-  url <- "http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/scpclr11.txt"
+  cat("reading url:", url, "\n")
   
   a <- readLines(url)
   b <- lapply(a, function(x) unlist(strsplit(x, " ")))
@@ -100,8 +76,12 @@ read_SCP <- function(url){
   end <- which(cumsum(c)==m) #last element that contains the cost elements
   
   #suppressing null elements
-  b[[which(c==0)]] <- NULL
-  c <- c[-which(c==0)]
+  
+  if(sum(which(c == 0)) != 0){
+    b[[which(c==0)]] <- NULL
+    c <- c[-which(c==0)]
+  }
+  
   
   #getting the costs vector
   costs <- b[[1]]
@@ -134,24 +114,22 @@ read_SCP <- function(url){
   
 }
 
-#---- saving 50 of the 80 Beasley instances -----
 
-some_url <- c(urlset4, urlset5, urlset6, urlsetA, urlsetB, urlsetC, urlsetD, urlsetE1)
-names_some_url <- c(names4, names5, names6, namesA, namesB, namesC, namesD, namesE1)
-
-Beasley_SCP <- lapply(some_url, read_SCP)
-names(Beasley_SCP) <- names_some_url
-save(Beasley_SCP, file="Beasley_SCP.RData")
 
 #---- saving all Beasley instances -----
 
-all_url <- c(urlset4, urlset5, urlset6, urlsetA, urlsetB, urlsetC, urlsetD, urlsetE1, urlsetE2, urlsetF, urlsetG, urlsetH, urlsetCYC, urlsetCRL)
-names_all_url <- c(names4, names5, names6, namesA, namesB, namesC, namesD, namesE1, namesE2, namesF, namesG, namesH, namesCYC, namesCLR)
 
-
-Beasley_SCP <- lapply(all_url, read_SCP)
-names(Beasley_SCP) <- names_all_url
+Beasley_SCP <- lapply(all_url, read_scp)
+names(Beasley_SCP) <- all_names
 save(Beasley_SCP, file="Beasley_SCP.RData")
 
+lapply(1:length(Beasley_SCP), function(x){
+  cat("instance name:", all_names[x], "\n")
+  cat("number of sets:", Beasley_SCP[[x]]$m, "\n")
+  cat("number of elements:", Beasley_SCP[[x]]$n, "\n")
+  return(NULL)
+})
 
-z <- lapply(urlsetCRL, read_SCP)
+save(Beasley_SCP, file = "~/Dropbox (UPC)/quanti_docs/02-RLab/00-packages/combheuristics/data/Beasley_SCP.RData")
+
+
