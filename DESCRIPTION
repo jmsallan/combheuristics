@@ -4,7 +4,7 @@ Title: Heuristics for combinatorial problems
 Version: 0.1.0
 Author: Jose M Sallan
 Maintainer: Jose M Sallan <jose.maria.sallan@upc.edu>
-Description: A collection of heuristics for combinatorial problem. At this stage, only for the permutative flowshop problem.
+Description: A collection of heuristics for combinatorial problems. At this stage, only for the permutative flowshop problem.
 Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
